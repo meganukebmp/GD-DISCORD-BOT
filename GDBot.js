@@ -1,32 +1,27 @@
 /**
  * FILL THESE
  */
- var USERNAME = "" // Bot username in the channel
- var EMAIL    = "" //Email for the bot account
- var PASSWORD = "" // Password for the bot account
- var OWNER = //User ID of owner. Get by typing \@username
+ var USERNAME = "GD Bot" // Bot username in the channel
+ var OWNER = 112303371980976128 //User ID of owner. Get by typing \@username
  
  var welcomeMessage = "Startup" //Welcome message (not working yet)
  
  var commandPrefix = "~" //prefix for the commands
  
 var DiscordClient = require('discord.io'); //require discord API
-
-var fs = require('fs'),
+var fs = require('fs');
 PNG = require('pngjs').PNG;
+var helptxt = fs.readFileSync("./help.txt", "utf8");
 
 
 var bot = new DiscordClient({ //create new discord bot
     autorun: true,
-    email: EMAIL,
-    password: PASSWORD,
-    //OR
     token: ""
 });
 
 bot.on('ready', function () {
     console.log(bot.username + " - (" + bot.id + ")");
-	//BotSay("180316469974794241", welcomeMessage);
+	BotSay("180316469974794241", welcomeMessage);
 	//invert(255,255,0,0,255,0)
 });
 
@@ -66,7 +61,7 @@ bot.on('message', function (user, userID, channelID, message, rawEvent) {
 			});
 			
 		} else if ((message.substring(0, 4) ==  "help") ) {
-				BotSay(channelID, "**SYNTAX:** ~draw <type> <icon> <R> <G> <B> <R1> <G1> <B1>")
+				BotSay(userID, helptxt)
 		};
 	};
 });
@@ -76,7 +71,7 @@ bot.on('message', function (user, userID, channelID, message, rawEvent) {
 var primaryR = 175 
 var primaryG = 175
 var primaryB = 175
-var primaryFlux = 81
+var primaryFlux = 61
 //secondary color variables
 var secondaryR = 255
 var secondaryG = 255
@@ -124,7 +119,9 @@ function colorImage(iconimage,RX,GX,BX,RY,GY,BY,chID) { //recieve inputs
 		this.pack().pipe(fs.createWriteStream('out/' + outputfile)); //make it a png with that name
 		
 		setTimeout(function(){ //wait a few seconds until it finishes coloring and then upload
-		BotUpload(chID, outputfile);
+			BotUpload(chID, outputfile, function(){
+				fs.unlink("out/" + outputfile, function(){})
+			})
 		},5000); 
 		
 	});
@@ -142,10 +139,12 @@ function BotSay(chID, ms) {
 };
 
 //Upload image function
-function BotUpload(chID, file) {
-	bot.uploadFile({
-		to: chID,
-		file: "out/" + file,
-		filename: "GDICON.png", //File will be uploaded to Discord
+function BotUpload(chID, file, callback) {
+    bot.uploadFile({
+        to: chID,
+        file: "out/" + file,
+        filename: "GDICON.png", //File will be uploaded to Discord
+}, function(){
+      callback()
 });
 };

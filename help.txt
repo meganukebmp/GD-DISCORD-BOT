@@ -1,0 +1,9 @@
+**SYNTAX:**
+
+**~**draw `<type>` `<id>` `<R1>` `<G1>` `<B1>` `<R2>` `<G2>` `<B2>`
+
+`type` - ball, ship, icon, spider, robot, wave, ufo
+`id` - 1,2,3... refer to http://geometry-dash.wikia.com/wiki/Icon_Kit
+`R1` `G1` `B1` - R G B values [0-255] primary color
+`R2` `G2` `B2` - R G B values [0-255] secondary color
+
