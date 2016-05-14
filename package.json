@@ -1,0 +1,26 @@
+{
+  "name": "gd-discord-bot",
+  "version": "1.0.0",
+  "description": "official geometry dash server bot",
+  "main": "GDBot.js",
+  "scripts": {
+	"start": "node GDBot.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meganukebmp/GD-DISCORD-BOT.git"
+  },
+  "author": "meganukebmp",
+  "license": "MIT",
+   "dependencies": {
+    "discord.io": "1.9.x",
+	"pngjs": "2.3.x",
+	"express": "4.13.4"
+	, "npm":""
+	},
+  "bugs": {
+    "url": "https://github.com/meganukebmp/GD-DISCORD-BOT/issues"
+  },
+  "homepage": "https://github.com/meganukebmp/GD-DISCORD-BOT#readme"
+}

@@ -11,21 +11,31 @@
 var DiscordClient = require('discord.io'); //require discord API
 var fs = require('fs');
 PNG = require('pngjs').PNG;
+var express = require('express');
+var app = express();
 var helptxt = fs.readFileSync("./help.txt", "utf8");
+var tokentxt = fs.readFileSync("./token.txt", "utf8");
 
+var port = process.env.PORT || 8080; //assign port. If no port use 8080
+
+app.listen(port, function() { //listen for port. Return response not to timeout.
+    console.log('Our app is running on http://localhost:' + port); 
+});
+
+app.use(express.static(__dirname + '/public')); //static content in /public
 
 var bot = new DiscordClient({ //create new discord bot
     autorun: true,
-    token: ""
+    token: tokentxt
 });
 
-bot.on('ready', function () {
-    console.log(bot.username + " - (" + bot.id + ")");
+bot.on('ready', function () { //when the bot is ready
+    console.log(bot.username + " - (" + bot.id + ")"); 
 	BotSay("180316469974794241", welcomeMessage);
 	//invert(255,255,0,0,255,0)
 });
 
-bot.on('message', function (user, userID, channelID, message, rawEvent) {
+bot.on('message', function (user, userID, channelID, message, rawEvent) { //when a user enters a message
 	
 	 if ( (message[0] == commandPrefix) ) {  //Command messages
 
