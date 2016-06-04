@@ -5,16 +5,18 @@
  var OWNER = 112303371980976128 //User ID of owner. Get by typing \@username
  
  var welcomeMessage = "Startup" //Welcome message (not working yet)
+ var playingMessage = "by meganukebmp" //the playing: text
  
  var commandPrefix = "~" //prefix for the commands
  
 var DiscordClient = require('discord.io'); //require discord API
-var fs = require('fs');
-PNG = require('pngjs').PNG;
-var express = require('express');
+var fs = require('fs'); //filesystem
+PNG = require('pngjs').PNG; //require pngjs for image edit
+var express = require('express'); //require express API for network stuffs
 var app = express();
-var helptxt = fs.readFileSync("./help.txt", "utf8");
-var tokentxt = fs.readFileSync("./token.txt", "utf8");
+
+var helptxt = fs.readFileSync("./help.txt", "utf8"); //turn contents of help.txt to var
+var tokentxt = fs.readFileSync("./token.txt", "utf8");  //turn contents of tekentxt to var
 
 var port = process.env.PORT || 8080; //assign port. If no port use 8080
 
@@ -26,14 +28,15 @@ app.use(express.static(__dirname + '/public')); //static content in /public
 
 var bot = new DiscordClient({ //create new discord bot
     autorun: true,
-    token: tokentxt
+    token: tokentxt //use token from var
 });
 
 bot.on('ready', function () { //when the bot is ready
     console.log(bot.username + " - (" + bot.id + ")"); 
 	BotSay("180316469974794241", welcomeMessage);
-	//invert(255,255,0,0,255,0)
+	BotSetPlayingText(playingMessage);
 });
+
 
 bot.on('message', function (user, userID, channelID, message, rawEvent) { //when a user enters a message
 	
@@ -60,6 +63,7 @@ bot.on('message', function (user, userID, channelID, message, rawEvent) { //when
 				if (col0 < 0 || col0 > 255 || col1 < 0 || col1 > 255 || col2 < 0 || col2 > 255 || col3 < 0 || col3 > 255 || col4 < 0 || col4 > 255 || col5 < 0 || col5 > 255 ) { //error if RGB ranges are weird
 					BotSay(channelID, "ERROR RGB values can only range from `0` to `255`")
 				} else {
+					if (typename == "cube") {typename = "icon"} else if (typename == "dart") {typename = "wave"}
 					var newimage = "icons/"+typename+'/'+imagename+".png" //create image dir to pass down
 					colorImage(newimage,col0,col1,col2,col3,col4,col5,channelID); //send data to colorImage
 					console.log("ImageColor: "+col0+col1+col2+col3+col4+col5+" "+newimage); //log
@@ -157,4 +161,11 @@ function BotUpload(chID, file, callback) {
 }, function(){
       callback()
 });
+};
+
+//change playing text
+function BotSetPlayingText(ply) {
+	bot.setPresence({	
+		game: "by meganukebmp"
+	})
 };
