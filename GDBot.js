@@ -8,7 +8,19 @@
  var playingMessage = "by meganukebmp" //the playing: text
  
  var commandPrefix = "~" //prefix for the commands
- 
+
+//Randomizer stuffs 
+var Types = [ "icon", "ball", "wave", "ship", "ufo", "robot", "spider", "mini" ]
+var maxIcon = 71
+var maxShip = 25
+var maxBall = 18
+var maxUfo = 18
+var maxWave = 13
+var maxSpider = 1
+var maxRobot = 6
+var maxMini = 2
+
+//Initialization
 var DiscordClient = require('discord.io'); //require discord API
 var fs = require('fs'); //filesystem
 PNG = require('pngjs').PNG; //require pngjs for image edit
@@ -33,7 +45,7 @@ var bot = new DiscordClient({ //create new discord bot
 
 bot.on('ready', function () { //when the bot is ready
     console.log(bot.username + " - (" + bot.id + ")"); 
-	BotSay("180316469974794241", welcomeMessage);
+	BotSay("111949493838065664", welcomeMessage);
 	BotSetPlayingText(playingMessage);
 });
 
@@ -57,13 +69,26 @@ bot.on('message', function (user, userID, channelID, message, rawEvent) { //when
 			var col4 = parseFloat(message.split(" ")[6])
 			var col5 = parseFloat(message.split(" ")[7])
 			
+			if (typename == "cube") {typename = "icon"} else if (typename == "dart") {typename = "wave"} //fix syntax
+			
+			// Randomizer
+			if (typename == "random") {
+				
+				typename = randomizeIcon("type")
+				imagename = randomizeIcon("name", typename)
+				col0 = randomizeIcon("color")
+			    col1 = randomizeIcon("color")
+				col2 = randomizeIcon("color")
+				col3 = randomizeIcon("color")
+				col4 = randomizeIcon("color")
+				col5 = randomizeIcon("color")
+			}
 			
 			fs.stat("icons/"+typename+"/"+imagename+".png", function(err, stats) { if(!err && stats.isFile()) { //checks if file exists
 				
 				if (col0 < 0 || col0 > 255 || col1 < 0 || col1 > 255 || col2 < 0 || col2 > 255 || col3 < 0 || col3 > 255 || col4 < 0 || col4 > 255 || col5 < 0 || col5 > 255 ) { //error if RGB ranges are weird
 					BotSay(channelID, "ERROR RGB values can only range from `0` to `255`")
 				} else {
-					if (typename == "cube") {typename = "icon"} else if (typename == "dart") {typename = "wave"}
 					var newimage = "icons/"+typename+'/'+imagename+".png" //create image dir to pass down
 					colorImage(newimage,col0,col1,col2,col3,col4,col5,channelID); //send data to colorImage
 					console.log("ImageColor: "+col0+col1+col2+col3+col4+col5+" "+newimage); //log
@@ -168,4 +193,25 @@ function BotSetPlayingText(ply) {
 	bot.setPresence({	
 		game: "by meganukebmp"
 	})
+};
+
+//Drawable Randomizer 
+function randomizeIcon(type, typename){
+	if (type == "color") {
+		return Math.floor(Math.random() * 255)
+	}
+	else if (type == "type") {
+		return Types[Math.floor(Math.random() * Types.length)]
+	}
+	else if (type == "name") {
+		
+		if (typename == "icon") { return Math.floor(Math.random() * maxIcon) + 1 }
+		else if (typename == "ship") { return Math.floor(Math.random() * maxShip) + 1 }
+		else if (typename == "ball") { return Math.floor(Math.random() * maxBall) + 1 }
+		else if (typename == "wave") { return Math.floor(Math.random() * maxWave) + 1 }
+		else if (typename == "ufo") { return Math.floor(Math.random() * maxUfo) + 1 }
+		else if (typename == "robot") { return Math.floor(Math.random() * maxRobot) + 1 }
+		else if (typename == "spider") { return Math.floor(Math.random() * maxSpider) + 1 }
+		else if (typename == "mini") { return Math.floor(Math.random() * maxMini) + 1 }
+	};
 };
