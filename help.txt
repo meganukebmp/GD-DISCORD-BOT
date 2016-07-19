@@ -1,13 +1,33 @@
 **SYNTAX:**
 
-**~**draw `<type>` `<id>` `<R1>` `<G1>` `<B1>` `<R2>` `<G2>` `<B2>`
+**~**draw `<type>` `<id>` `[COLORS]`
 
-`type` - ball, ship, icon, spider, robot, wave, ufo
+`type` - ball, ship, icon, spider, robot, wave, ufo, mini
+
 `id` - 1,2,3... refer to http://geometry-dash.wikia.com/wiki/Icon_Kit
-`R1` `G1` `B1` - R G B values [0-255] primary color
-`R2` `G2` `B2` - R G B values [0-255] secondary color
 
-**OR** **~**draw `random`
+`[COLORS]` - Can be 6 RGB values. `R1 G1 B1 R2 G2 B2`
+	   - Can be 2 HEX values. `#ff00ff #ff0bb`
+	   - Can be 2 LITERAL values.
+```
+red, green, blue, yellow, orange, lime, cyan,
+purple, magenta, pink, white, black, gray, denim, violet,
+aquamarine, lightblue, darkblue, darkmagenta, lightpink,
+lightorange, lightgray, emerald, darkcyan
+```
+
+**OR** 
+
+**~**draw `random` `[TYPE]`
+
+Not providing a type in the `random` function will just draw a random icon. Providing a type will draw a random icon of that type.
+
+If no colors are provided icon will either be colored in random colors or black.
+
+
+__Please report bugs to <@112303371980976128> at https://github.com/meganukebmp/GD-DISCORD-BOT/issues__
 
 
 
+
+:smiley_cat: 

@@ -1,0 +1,5 @@
+token:
+username:[~] IconBot 2.0
+owner: 112303371980976128
+prefix: ~ 
+types: { "ball":18, "icon":71, "mini":2, "robot":6, "ship":25, "spider":1, "ufo":18, "wave":13 }

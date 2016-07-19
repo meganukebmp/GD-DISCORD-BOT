@@ -4,7 +4,7 @@
   "description": "official geometry dash server bot",
   "main": "GDBot.js",
   "scripts": {
-	"start": "node GDBot.js",
+    "start": "node GDBot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -13,12 +13,12 @@
   },
   "author": "meganukebmp",
   "license": "MIT",
-   "dependencies": {
-    "discord.io": "1.9.x",
-	"pngjs": "2.3.x",
-	"express": "4.13.4"
-	, "npm":""
-	},
+  "dependencies": {
+    "discord.js": "^8.0.0",
+    "express": "4.13.4",
+    "npm": "",
+    "pngjs": "2.3.x"
+  },
   "bugs": {
     "url": "https://github.com/meganukebmp/GD-DISCORD-BOT/issues"
   },
