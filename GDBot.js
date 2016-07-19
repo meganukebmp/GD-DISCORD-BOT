@@ -29,6 +29,11 @@ bot.on("ready", function() {
     console.log("Finished!");
 	bot.setUsername( USERNAME ); // changes username
 	bot.setPlayingGame( "Nexrem / meganukebmp" ); // changes playing text
+	
+	// sends message to all servers on boot.
+	for (i=0; i< bot.servers.length; i++) {
+		sendMessage(bot.servers[i].channels.get("id", bot.servers[i].id) , "Started up and ready to roll!");
+	};
 });
 
 /////////////////////////////////////////////////////////// RUNTIME ////////////////////////////////////////////////
